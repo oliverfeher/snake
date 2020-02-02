@@ -34,6 +34,15 @@ class Snake
         end
     end
 
+    def back_and_forth?(new_direction) # Method makes sure, that the snake cannot go back and forth
+        case @direction
+        when "up" then new_direction != "down"
+        when "down" then new_direction != "up"
+        when "left" then new_direction != "right"
+        when "right" then new_direction != "left"
+        end
+    end
+
     private
 
     def head
@@ -52,7 +61,9 @@ end
 
 on :key_down do |event| # Adding event listener to keyboard key press down
     if ["up", "down", "left", "right"].include?(event.key) #these are the cursor arrows
+        if snake.back_and_forth?(event.key)
         snake.direction = event.key #the snake's direction will change to the value of the pressed cursor arrow
+        end
     end
 end
 

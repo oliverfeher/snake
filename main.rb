@@ -6,6 +6,9 @@ set fps_cap:  20
 # height = 480 / 20 = 24
 
 GRID_SIZE = 20 # Breaking up the screen into grid lines
+GRID_WIDTH = Window.width / GRID_SIZE
+GRID_HEIGHT = Window.height / GRID_SIZE
+
 
 class Snake
     attr_accessor :direction
@@ -24,13 +27,13 @@ class Snake
         @positions.shift # remove last array from @positions to imitate movement
         case @direction
         when "down"
-            @positions.push([head[0], head[1] + 1]) # Increment Y - for down movement
+            @positions.push(new_coords(head[0], head[1] + 1)) # Increment Y - for down movement
         when "up"
-            @positions.push([head[0], head[1] - 1]) # Decrenent Y - for up movement
+            @positions.push(new_coords(head[0], head[1] - 1)) # Decrenent Y - for up movement
         when "left"
-            @positions.push([head[0] -1, head[1]]) # Decrement X - for left movement
+            @positions.push(new_coords(head[0] -1, head[1])) # Decrement X - for left movement
         when "right"
-            @positions.push([head[0] +1, head[1]]) # Increment X - for right movement
+            @positions.push(new_coords(head[0] +1, head[1])) # Increment X - for right movement
         end
     end
 
@@ -41,6 +44,10 @@ class Snake
         when "left" then new_direction != "right"
         when "right" then new_direction != "left"
         end
+    end
+
+    def new_coords(x, y)
+        [x % GRID_WIDTH, y % GRID_HEIGHT]
     end
 
     private
@@ -61,7 +68,7 @@ end
 
 on :key_down do |event| # Adding event listener to keyboard key press down
     if ["up", "down", "left", "right"].include?(event.key) #these are the cursor arrows
-        if snake.back_and_forth?(event.key)
+        if snake.back_and_forth?(event.key) 
         snake.direction = event.key #the snake's direction will change to the value of the pressed cursor arrow
         end
     end

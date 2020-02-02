@@ -8,6 +8,7 @@ set fps_cap:  20
 GRID_SIZE = 20 # Breaking up the screen into grid lines
 
 class Snake
+    attr_accessor :direction
     def initialize
         @positions = [[2, 0], [2, 1], [2, 2], [2, 3]] # Snake starting position on the grid
         @direction = "down"
@@ -23,8 +24,13 @@ class Snake
         @positions.shift # remove last array from @positions to imitate movement
         case @direction
         when "down"
-            @positions.push([head[0], head[1] + 1]) # Add head to Snake to imitate movement
-            
+            @positions.push([head[0], head[1] + 1]) # Increment Y - for down movement
+        when "up"
+            @positions.push([head[0], head[1] - 1]) # Decrenent Y - for up movement
+        when "left"
+            @positions.push([head[0] -1, head[1]]) # Decrement X - for left movement
+        when "right"
+            @positions.push([head[0] +1, head[1]]) # Increment X - for right movement
         end
     end
 

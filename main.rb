@@ -1,7 +1,7 @@
 require "ruby2d"
 
-set background: "navy"
-set fps_cap:  20
+set background: "black"
+set fps_cap:  15
 # width = 640 /20 = 32
 # height = 480 / 20 = 24
 
@@ -10,7 +10,8 @@ GRID_WIDTH = Window.width / GRID_SIZE
 GRID_HEIGHT = Window.height / GRID_SIZE
 
 
-class Snake
+class Snake 
+
     attr_accessor :direction
     def initialize
         @positions = [[2, 0], [2, 1], [2, 2], [2, 3]] # Snake starting position on the grid
@@ -75,3 +76,4 @@ on :key_down do |event| # Adding event listener to keyboard key press down
 end
 
 show
+
